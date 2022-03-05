@@ -1,2 +1,1 @@
-# simpson-college
-simpson college microservices
+Edu tech microservices
