@@ -1,0 +1,16 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: COURSE-SERVICE
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: your_db_username
+    password: your_db_password
+    url: jdbc:mysql://localhost:3306/your_db_name
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
