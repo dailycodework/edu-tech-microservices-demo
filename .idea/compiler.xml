@@ -22,7 +22,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="course-service" options="-parameters --add-modules java.base" />
       <module name="instructor-service" options="-parameters" />
-      <module name="student-service" options="-parameters" />
+      <module name="student-service" options="-parameters --add-modules java.base" />
     </option>
   </component>
 </project>

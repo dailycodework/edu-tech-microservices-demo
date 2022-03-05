@@ -1,16 +1,17 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
-    name: COURSE-SERVICE
+    name: STUDENT-SERVICE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: your_db_username
-    password: your_db_password
-    url: jdbc:mysql://localhost:3306/your-db-name
+    username: your_username
+    password: your_password
+    url: jdbc:mysql://localhost:3306/your-db
   jpa:
     generate-ddl: true
     hibernate:
       ddl-auto: update
     show-sql: true
+

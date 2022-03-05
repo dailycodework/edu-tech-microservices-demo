@@ -13,7 +13,7 @@ public class RequestTemplate {
 
    
     public Object[] getCourseStudents(Set<String> studentsIds) {
-        return restTemplate.getForObject(""+studentsIds, Object[].class);       
+        return restTemplate.getForObject("http://localhost:8002/api/students/student/selected/"+studentsIds, Object[].class);
     }    
     
     public Instructor getCourseInstructor(String instructorId){
