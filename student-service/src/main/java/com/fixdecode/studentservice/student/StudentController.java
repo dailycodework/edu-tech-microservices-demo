@@ -27,7 +27,6 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Student> addStudent(@RequestBody Student theStudent){
         return new ResponseEntity<>(studentService.addStudent(theStudent), HttpStatus.CREATED);
-
     }
 
     @PostMapping(UrlMapping.REGISTER_STUDENTS_FOR_COURSES)

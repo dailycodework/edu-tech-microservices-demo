@@ -1,6 +1,7 @@
 package com.fixdecode.studentservice.util;
 
 public final class UrlMapping {
+    //Mapping all endpoints urls
     public static final String API ="api/v1/";
     public static final String EMAIL = "/{email}";
     public static final String UPDATE_STUDENT ="/update" ;
