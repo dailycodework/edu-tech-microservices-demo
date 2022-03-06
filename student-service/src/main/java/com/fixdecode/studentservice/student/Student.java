@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,4 +24,13 @@ public class Student {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "students_courses", joinColumns = @JoinColumn(name = "students_id"))
     private Set<String> coursesId;
+
+
+    public void registerStudentForCourses(Set<String> coursesIds){
+        if (this.coursesId.isEmpty()){
+            this.coursesId = new HashSet<>();
+            this.coursesId.addAll(coursesIds);
+        }
+        this.setCoursesId(coursesIds);
+    }
 }

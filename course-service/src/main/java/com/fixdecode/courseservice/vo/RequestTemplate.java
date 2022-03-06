@@ -18,6 +18,5 @@ public class RequestTemplate {
     
     public Instructor getCourseInstructor(String instructorId){
         return restTemplate.getForObject(""+ instructorId, Instructor.class);
-
     }
 }

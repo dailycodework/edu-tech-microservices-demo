@@ -30,6 +30,13 @@ public class StudentController {
 
     }
 
+    @PostMapping(UrlMapping.REGISTER_STUDENTS_FOR_COURSES)
+    public ResponseEntity<List<Student>> registerStudentsForCourses(
+            @RequestParam("studentsIds") Set<String> studentsIds,
+            @RequestParam("coursesIds") Set<String> coursesIds){
+        return new ResponseEntity<>(studentService.registerStudents(studentsIds,coursesIds),HttpStatus.OK);
+    }
+
     @GetMapping(UrlMapping.EMAIL)
     public ResponseEntity<Student> getStudent(@PathVariable("email") String email){
         return new ResponseEntity<>(studentService.getStudent(email), HttpStatus.OK);
@@ -37,7 +44,7 @@ public class StudentController {
 
     @GetMapping(UrlMapping.STUDENT_EMAIL)
     public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("email") String email){
-        return new ResponseEntity<>(studentService.getStudentWithCourses(email), HttpStatus.OK);
+        return new ResponseEntity<>(studentService.getStudentWithCourses(email), HttpStatus.FOUND);
     }
 
     @GetMapping(UrlMapping.SELECTED_STUDENT_IDS)
@@ -45,4 +52,10 @@ public class StudentController {
         List<Student> students = studentService.getSelectedStudents(studentIds);
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
+
+    @PutMapping(UrlMapping.UPDATE_STUDENT)
+    public ResponseEntity<Student> updateStudent(@RequestBody Student theStudent){
+        return new ResponseEntity<>(studentService.updateStudent(theStudent), HttpStatus.OK);
+   }
+
 }
