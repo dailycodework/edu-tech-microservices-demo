@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,9 +29,9 @@ public class StudentService {
         return studentRepository.save(theStudent);
     }
 
-    public Student getStudent(String email){
-        return studentRepository.findById(email)
-                .orElseThrow(() -> new StudentNotFoundException(String.format(FeedBackMessage.NOT_FOUND, email)));
+    public Student getStudent(String id){
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException(String.format(FeedBackMessage.NOT_FOUND, id)));
     }
 
     public VOTemplate getStudentWithCourses(String studentEmail){
@@ -45,13 +46,18 @@ public class StudentService {
     public List<Student> getSelectedStudents(Iterable<String> studentIds) {
         return studentRepository.findAllById(studentIds);
     }
-
+    // improve this method to have fewer code
     public Student updateStudent(Student theStudent) {
+        var student = getStudent(theStudent.getId());
+        var courses = student.getCoursesId().stream().toList();
+        var studentCourses = new HashSet<>(courses);
+        theStudent.setCoursesId(studentCourses);
         return studentRepository.save(theStudent);
     }
+
      @Transactional
     public List<Student> registerStudents(Set<String> studentsIds, Set<String> coursesIds) {
-        List<Student> students = studentRepository.findAllById(studentsIds);
+        List<Student> students = getSelectedStudents(studentsIds);
         List<Student> registeredStudents = new ArrayList<>();
         for (Student s : students){
             s.registerStudentForCourses(coursesIds);
