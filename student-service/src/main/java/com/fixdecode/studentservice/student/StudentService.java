@@ -31,7 +31,8 @@ public class StudentService {
 
     public Student getStudent(String id){
         return studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException(String.format(FeedBackMessage.NOT_FOUND, id)));
+                .orElseThrow(() -> new StudentNotFoundException(
+                        String.format(FeedBackMessage.NOT_FOUND, id)));
     }
 
     public VOTemplate getStudentWithCourses(String studentEmail){
@@ -46,18 +47,16 @@ public class StudentService {
     public List<Student> getSelectedStudents(Iterable<String> studentIds) {
         return studentRepository.findAllById(studentIds);
     }
-    // improve this method to have fewer code
+
     public Student updateStudent(Student theStudent) {
         var student = getStudent(theStudent.getId());
-        var courses = student.getCoursesId().stream().toList();
-        var studentCourses = new HashSet<>(courses);
-        theStudent.setCoursesId(studentCourses);
+        theStudent.setCoursesId(student.getCoursesId());
         return studentRepository.save(theStudent);
     }
 
      @Transactional
     public List<Student> registerStudents(Set<String> studentsIds, Set<String> coursesIds) {
-        List<Student> students = getSelectedStudents(studentsIds);
+        var students = getSelectedStudents(studentsIds);
         List<Student> registeredStudents = new ArrayList<>();
         for (Student s : students){
             s.registerStudentForCourses(coursesIds);

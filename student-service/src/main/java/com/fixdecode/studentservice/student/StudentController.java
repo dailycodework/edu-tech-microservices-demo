@@ -46,7 +46,7 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudentWithCourses(email), HttpStatus.FOUND);
     }
 
-    @GetMapping(UrlMapping.SELECTED_STUDENT_IDS)
+    @GetMapping(UrlMapping.GET_SELECTED_STUDENT_BY_ID)
     public ResponseEntity<List<Student>> getSelectedStudents(@PathVariable("ids") Set<String> studentIds){
         List<Student> students = studentService.getSelectedStudents(studentIds);
         return new ResponseEntity<>(students, HttpStatus.OK);
