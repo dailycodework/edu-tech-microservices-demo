@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -32,9 +33,25 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getCourse(id), HttpStatus.OK);
     }
 
-    @GetMapping(UrlMapping.GET_COURSE_WITH_STUDENTS_AND_INSTRUCTOR)
+/*    @GetMapping(UrlMapping.GET_COURSE_WITH_STUDENTS_AND_INSTRUCTOR)
     ResponseEntity<VOTemplate> getCourseWithStudentsAndInstructor(@PathVariable("id") String courseId){
        var course = courseService.getCourseWithStudentsAndInstructor(courseId);
         return new ResponseEntity<>(course, HttpStatus.OK);
+    }*/
+
+    @PostMapping(UrlMapping.ADD_COURSE_INSTRUCTOR)
+    public ResponseEntity<Course> addCourseInstructor(
+                                 @RequestParam("courseId") String courseId,
+                                  @RequestParam("instructorId") String instructorId){
+        return new ResponseEntity<>(
+                courseService.addCourseInstructor(courseId, instructorId), HttpStatus.OK);
+    }
+
+    @PostMapping(UrlMapping.ADD_SELECTED_STUDENTS_TO_COURSES)
+    public ResponseEntity<List<Course>> addSelectedStudentsToCourses(
+                       @RequestParam("coursesIds") Set<String> coursesIds,
+                       @RequestParam("studentsIds") Set<String> studentsIds){
+        return new ResponseEntity<>(
+                courseService.addSelectedStudentsToCourses(coursesIds, studentsIds), HttpStatus.OK);
     }
 }

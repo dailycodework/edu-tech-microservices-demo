@@ -54,7 +54,7 @@ public class StudentService {
         return studentRepository.save(theStudent);
     }
 
-     @Transactional
+    @Transactional
     public List<Student> registerStudents(Set<String> studentsIds, Set<String> coursesIds) {
         var students = getSelectedStudents(studentsIds);
         List<Student> registeredStudents = new ArrayList<>();
