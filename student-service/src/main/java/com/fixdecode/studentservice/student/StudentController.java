@@ -36,14 +36,9 @@ public class StudentController {
         return new ResponseEntity<>(studentService.registerStudents(studentsIds,coursesIds),HttpStatus.OK);
     }
 
-    @GetMapping(UrlMapping.EMAIL)
-    public ResponseEntity<Student> getStudent(@PathVariable("email") String email){
-        return new ResponseEntity<>(studentService.getStudent(email), HttpStatus.OK);
-    }
-
-    @GetMapping(UrlMapping.STUDENT_EMAIL)
-    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("email") String email){
-        return new ResponseEntity<>(studentService.getStudentWithCourses(email), HttpStatus.FOUND);
+    @GetMapping(UrlMapping.GET_STUDENT_BY_ID)
+    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String studentId){
+        return new ResponseEntity<>(studentService.getStudentWithCourses(studentId), HttpStatus.FOUND);
     }
 
     @GetMapping(UrlMapping.GET_SELECTED_STUDENT_BY_ID)

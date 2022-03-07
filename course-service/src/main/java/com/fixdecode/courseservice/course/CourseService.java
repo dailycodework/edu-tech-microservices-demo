@@ -37,19 +37,19 @@ public class CourseService {
                 .orElseThrow(() -> new CourseNotFoundException(String.format(FeedBackMessage.NOT_FOUND, id)));
     }
 
-   /* @Transactional
+    @Transactional
     public VOTemplate getCourseWithStudentsAndInstructor(String courseId){
         VOTemplate VOT = new VOTemplate();
         Course theCourse = this.getCourse(courseId);
         //Make a rest call to get selected student from the student-service
-        Object[] students = requestTemplate.getSelectedStudents(theCourse.getStudentsIds());
+        Student[] students = requestTemplate.getSelectedStudents(theCourse.getStudentsIds());
         log.info("Students Found  {} : ", Arrays.stream(students).toArray());
         //Make a rest call to instructor-service
         Instructor instructor = requestTemplate.getCourseInstructor(theCourse.getInstructorId());
         VOT.setInstructor(instructor);
         VOT.setStudents(students);
         return VOT;
-    }*/
+    }
 
     public Course addCourseInstructor(String courseId, String instructorId) {
         var course = getCourse(courseId);

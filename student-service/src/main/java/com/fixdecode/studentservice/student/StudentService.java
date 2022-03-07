@@ -29,15 +29,9 @@ public class StudentService {
         return studentRepository.save(theStudent);
     }
 
-    public Student getStudent(String id){
-        return studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException(
-                        String.format(FeedBackMessage.NOT_FOUND, id)));
-    }
-
     public VOTemplate getStudentWithCourses(String studentEmail){
         VOTemplate VOT = new VOTemplate();
-        var theStudent =  this.getStudent(studentEmail);
+        var theStudent =  this.getStudentById(studentEmail);
         Object[] courses = requestTemplate.getStudentCourses(theStudent.getCoursesId());
         VOT.setStudent(theStudent);
         VOT.setCourses(courses);
@@ -49,7 +43,7 @@ public class StudentService {
     }
 
     public Student updateStudent(Student theStudent) {
-        var student = getStudent(theStudent.getId());
+        var student = this.getStudentById(theStudent.getId());
         theStudent.setCoursesId(student.getCoursesId());
         return studentRepository.save(theStudent);
     }
@@ -63,5 +57,11 @@ public class StudentService {
             registeredStudents.add(s);
         }
         return studentRepository.saveAll(registeredStudents);
+    }
+
+    private Student getStudentById(String id) {
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException(
+                        String.format(FeedBackMessage.NOT_FOUND, id)));
     }
 }

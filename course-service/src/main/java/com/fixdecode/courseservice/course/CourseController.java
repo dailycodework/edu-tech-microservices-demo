@@ -33,11 +33,11 @@ public class CourseController {
         return new ResponseEntity<>(courseService.getCourse(id), HttpStatus.OK);
     }
 
-/*    @GetMapping(UrlMapping.GET_COURSE_WITH_STUDENTS_AND_INSTRUCTOR)
+   @GetMapping(UrlMapping.GET_COURSE_WITH_STUDENTS_AND_INSTRUCTOR)
     ResponseEntity<VOTemplate> getCourseWithStudentsAndInstructor(@PathVariable("id") String courseId){
        var course = courseService.getCourseWithStudentsAndInstructor(courseId);
         return new ResponseEntity<>(course, HttpStatus.OK);
-    }*/
+    }
 
     @PostMapping(UrlMapping.ADD_COURSE_INSTRUCTOR)
     public ResponseEntity<Course> addCourseInstructor(
