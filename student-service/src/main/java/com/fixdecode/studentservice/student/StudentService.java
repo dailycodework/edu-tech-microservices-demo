@@ -38,8 +38,8 @@ public class StudentService {
         return VOT;
     }
 
-    public List<Student> getSelectedStudents(Iterable<String> studentIds) {
-        return studentRepository.findAllById(studentIds);
+    public List<Student> getSelectedStudentsById(Iterable<String> studentIds) {
+        return studentRepository.findAllById(studentIds).stream().toList();
     }
 
     public Student updateStudent(Student theStudent) {
@@ -49,8 +49,8 @@ public class StudentService {
     }
 
     @Transactional
-    public List<Student> registerStudents(Set<String> studentsIds, Set<String> coursesIds) {
-        var students = getSelectedStudents(studentsIds);
+    public List<Student> registerStudentsForCourses(Set<String> studentsIds, Set<String> coursesIds) {
+        var students = getSelectedStudentsById(studentsIds);
         List<Student> registeredStudents = new ArrayList<>();
         for (Student s : students){
             s.registerStudentForCourses(coursesIds);

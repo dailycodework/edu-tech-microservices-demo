@@ -33,17 +33,17 @@ public class StudentController {
     public ResponseEntity<List<Student>> registerStudentsForCourses(
             @RequestParam("studentsIds") Set<String> studentsIds,
             @RequestParam("coursesIds") Set<String> coursesIds){
-        return new ResponseEntity<>(studentService.registerStudents(studentsIds,coursesIds),HttpStatus.OK);
+        return new ResponseEntity<>(studentService.registerStudentsForCourses(studentsIds,coursesIds),HttpStatus.OK);
     }
 
     @GetMapping(UrlMapping.GET_STUDENT_BY_ID)
-    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String studentId){
-        return new ResponseEntity<>(studentService.getStudentWithCourses(studentId), HttpStatus.FOUND);
+    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String id){
+        return new ResponseEntity<>(studentService.getStudentWithCourses(id), HttpStatus.FOUND);
     }
 
-    @GetMapping(UrlMapping.GET_SELECTED_STUDENT_BY_ID)
-    public ResponseEntity<List<Student>> getSelectedStudents(@PathVariable("ids") Set<String> studentIds){
-        List<Student> students = studentService.getSelectedStudents(studentIds);
+    @GetMapping(UrlMapping.GET_SELECTED_STUDENTS)
+    public ResponseEntity<List<Student>> getSelectedStudentsById(@RequestParam("ids") Set<String> ids){
+        List<Student> students = studentService.getSelectedStudentsById(ids);
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
