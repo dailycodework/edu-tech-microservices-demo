@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @Slf4j
@@ -60,16 +61,17 @@ public class CourseService {
 
     @Transactional
     public List<Course> addSelectedStudentsToCourses(Set<String> coursesIds, Set<String> studentsIds) {
-        List<Course> studentToAdd = new ArrayList<>();
+        List<Course> studentCourses = new ArrayList<>();
         var courses = courseRepository.findAllById(coursesIds);
+        System.out.println(courses.toString());
         //Make a rest call to get selected student from the student-service
         Student[] students = requestTemplate.getSelectedStudents(studentsIds);
-        log.info("Students Found {} : ", (Object) students);
+        log.info("Students Found {} : ", Arrays.stream(students).toArray());
         var studentIds = Arrays.stream(students).map(Student::getId).collect(toSet());
         for (Course course : courses){
             course.addStudentsToCourses(studentIds);
-            studentToAdd.add(course);
+            studentCourses.add(course);
         }
-       return courseRepository.saveAll(studentToAdd);
+       return courseRepository.saveAll(studentCourses);
     }
 }

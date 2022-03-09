@@ -5,7 +5,7 @@ public final class UrlMapping {
     public static final String STUDENTS ="api/v1/students";
     public static final String GET_STUDENT_BY_ID="/{id}";
     public static final String UPDATE_STUDENT="/update" ;
-    public static final String GET_SELECTED_STUDENTS="/selected-students";
+    public static final String GET_SELECTED_STUDENTS="/selected-students/{ids}";
     public static final String REGISTER_STUDENTS_FOR_COURSES="/register-student-courses" ;
 
 }

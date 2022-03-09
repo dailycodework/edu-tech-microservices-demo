@@ -4,6 +4,8 @@ package com.fixdecode.studentservice.student;
 import com.fixdecode.studentservice.util.UrlMapping;
 import com.fixdecode.studentservice.vo.VOTemplate;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
-
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(UrlMapping.STUDENTS)
@@ -42,8 +44,10 @@ public class StudentController {
     }
 
     @GetMapping(UrlMapping.GET_SELECTED_STUDENTS)
-    public ResponseEntity<List<Student>> getSelectedStudentsById(@RequestParam("ids") Set<String> ids){
+    public ResponseEntity<List<Student>> getSelectedStudentsById(@PathVariable("ids") Set<String> ids){
+        log.info("The IDs {} : ", ids);
         List<Student> students = studentService.getSelectedStudentsById(ids);
+        log.info("## Students Found {} : ",students.toArray());
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 

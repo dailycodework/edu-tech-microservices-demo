@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class VOTemplate {
     private Student student;
     private Object[] courses;
+    private Student[] students;
 }

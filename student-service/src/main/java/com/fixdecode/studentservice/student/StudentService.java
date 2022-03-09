@@ -37,7 +37,7 @@ public class StudentService {
         VOT.setCourses(courses);
         return VOT;
     }
-
+   @Transactional
     public List<Student> getSelectedStudentsById(Iterable<String> studentIds) {
         return studentRepository.findAllById(studentIds).stream().toList();
     }

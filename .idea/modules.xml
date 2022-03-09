@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/api-gateway/api-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/course-service/course-service.iml" filepath="$PROJECT_DIR$/course-service/course-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/edu-tech-microservices.iml" filepath="$PROJECT_DIR$/edu-tech-microservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/instructor-service/instructor-service.iml" filepath="$PROJECT_DIR$/instructor-service/instructor-service.iml" />
