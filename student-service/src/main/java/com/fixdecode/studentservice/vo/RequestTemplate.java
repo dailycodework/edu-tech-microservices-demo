@@ -27,14 +27,12 @@ public class RequestTemplate {
         return response.getCourses();
     }
 
-    public ResponseEntity<Student[]> registerStudentForCourses(Set<String> coursesIds, Set<String> studentsIds) {
+    public Student[] registerStudentForCourses(Set<String> coursesIds, Set<String> studentsIds) {
       //  String path = "register-students-courses";
         UriComponentsBuilder builder = UriComponentsBuilder
                 .fromUriString(COURSE_SERVICE)
                 .queryParam("coursesIds",coursesIds)
                 .queryParam("studentsIds", studentsIds);
-        ResponseEntity<Student[]> response= restTemplate.postForEntity(builder.buildAndExpand().toUri() , HttpMethod.POST, Student[].class);
-       Student[] feedBack = response.getBody();
-       return new ResponseEntity<>(feedBack, HttpStatus.OK);
+        return restTemplate.postForObject(builder.buildAndExpand().toUri() , HttpMethod.POST, Student[].class);
     }
 }

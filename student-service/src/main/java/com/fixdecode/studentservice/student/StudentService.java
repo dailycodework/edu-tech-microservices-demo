@@ -46,10 +46,10 @@ public class StudentService {
         var students = getSelectedStudentsById(studentsIds);
         var theStudents = students.stream().map(Student::getId).collect(toSet());
         //Making rest call to course-service to save students to selected courses.
-       var studentSavedToCourses = requestTemplate.registerStudentForCourses(coursesIds, theStudents);
+      var response = requestTemplate.registerStudentForCourses(coursesIds, theStudents);
         List<Student> registeredStudents = new ArrayList<>();
-        if (studentSavedToCourses.getStatusCodeValue() == 200){
-            for (Student s : students){
+        if (response !=null) {
+            for (Student s : students) {
                 s.registerStudentForCourses(coursesIds);
                 registeredStudents.add(s);
             }
