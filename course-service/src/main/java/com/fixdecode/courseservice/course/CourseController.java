@@ -39,10 +39,16 @@ public class CourseController {
         return new ResponseEntity<>(course, HttpStatus.OK);
     }
 
+    @GetMapping(UrlMapping.GET_SELECTED_COURSES)
+    ResponseEntity<List<Course>> getSelectedCourses(@RequestParam("coursesIds") Set<String> coursesIds){
+        var course = courseService.getSelectedCourses(coursesIds);
+        return new ResponseEntity<>(course, HttpStatus.OK);
+    }
+
     @PostMapping(UrlMapping.ADD_COURSE_INSTRUCTOR)
     public ResponseEntity<Course> addCourseInstructor(
                                  @RequestParam("courseId") String courseId,
-                                  @RequestParam("instructorId") String instructorId){
+                                 @RequestParam("instructorId") String instructorId){
         return new ResponseEntity<>(
                 courseService.addCourseInstructor(courseId, instructorId), HttpStatus.OK);
     }

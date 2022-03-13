@@ -68,4 +68,8 @@ public class CourseService {
         }
         return courseRepository.saveAll(registerCourses);
     }
+
+    public List<Course> getSelectedCourses(Set<String> coursesIds) {
+        return courseRepository.findAllById(coursesIds).stream().toList();
+    }
 }

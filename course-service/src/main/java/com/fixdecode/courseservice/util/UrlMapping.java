@@ -6,4 +6,5 @@ public final class UrlMapping {
     public static final String GET_COURSE_WITH_STUDENTS_AND_INSTRUCTOR ="/course/{id}" ;
     public static final String ADD_COURSE_INSTRUCTOR ="/course/add-course-instructor/" ;
     public static final String REGISTER_SELECTED_STUDENTS_FOR_COURSES ="/register-students/";
+    public static final String GET_SELECTED_COURSES ="/get-selected-courses/";
 }

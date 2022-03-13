@@ -1,5 +1,6 @@
 package com.fixdecode.studentservice.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fixdecode.studentservice.student.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class VOTemplate {
     private List<Course> courses;
     private List<Student> students;

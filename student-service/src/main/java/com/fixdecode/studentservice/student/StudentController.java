@@ -38,16 +38,14 @@ public class StudentController {
         return new ResponseEntity<>(studentService.registerStudentsForCourses(coursesIds, studentsIds),HttpStatus.OK);
     }
 
-  /*  @GetMapping(UrlMapping.GET_STUDENT_BY_ID)
-    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String id){
-        return new ResponseEntity<>(studentService.getStudentWithCourses(id), HttpStatus.FOUND);
-    }*/
+   @GetMapping(UrlMapping.GET_STUDENT_WITH_COURSES)
+    public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String studentId){
+        return new ResponseEntity<>(studentService.getStudentWithCourses(studentId), HttpStatus.FOUND);
+    }
 
     @GetMapping(UrlMapping.GET_SELECTED_STUDENTS)
     public ResponseEntity<List<Student>> getSelectedStudentsById(@PathVariable("ids") Set<String> ids){
-        log.info("The IDs {} : ", ids);
         List<Student> students = studentService.getSelectedStudentsById(ids);
-        log.info("## Students Found {} : ",students.toArray());
         return new ResponseEntity<>(students, HttpStatus.FOUND);
     }
 
@@ -55,5 +53,4 @@ public class StudentController {
     public ResponseEntity<Student> updateStudent(@RequestBody Student theStudent){
         return new ResponseEntity<>(studentService.updateStudent(theStudent), HttpStatus.OK);
    }
-
 }

@@ -2,8 +2,7 @@ package com.fixdecode.studentservice.student;
 
 import com.fixdecode.studentservice.exceptions.StudentNotFoundException;
 import com.fixdecode.studentservice.util.FeedBackMessage;
-import com.fixdecode.studentservice.vo.Course;
-import com.fixdecode.studentservice.vo.RequestTemplate;
+import com.fixdecode.studentservice.vo.RestRequestTemplate;
 import com.fixdecode.studentservice.vo.VOTemplate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @Slf4j
@@ -20,7 +19,7 @@ import static java.util.stream.Collectors.toSet;
 @AllArgsConstructor
 public class StudentService {
     private StudentRepository studentRepository;
-    private RequestTemplate requestTemplate;
+    private RestRequestTemplate requestTemplate;
 
     public List<Student> getStudents(){
         return studentRepository.findAll().stream().toList();
@@ -56,6 +55,21 @@ public class StudentService {
         }
         return studentRepository.saveAll(registeredStudents);
     }
+
+    public VOTemplate getStudentWithCourses(String id) {
+        VOTemplate VOT = new VOTemplate();
+        var student = studentRepository.getById(id);
+        var studentCoursesId = student.getCourses();
+        // Call to the Course-Service to get the student courses for us.
+        var studentCourses =
+                Arrays.stream(requestTemplate
+                        .getSelectedCourses(student.getCourses()))
+                        .collect(toList());
+        VOT.setCourses(studentCourses);
+        VOT.setStudents(Collections.singletonList(student));
+        return VOT;
+    }
+
 
 
     private Student getStudentById(String id) {
