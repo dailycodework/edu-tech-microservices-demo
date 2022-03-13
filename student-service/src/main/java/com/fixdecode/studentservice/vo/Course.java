@@ -4,11 +4,10 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course {
@@ -17,4 +16,5 @@ public class Course {
     private Integer modules;
     private String duration;
     private String instructorId;
+    private List<String> students;
 }

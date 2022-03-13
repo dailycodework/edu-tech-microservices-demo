@@ -23,12 +23,12 @@ public class Student {
     private String email;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "students_courses", joinColumns = @JoinColumn(name = "students_id"))
-    private Set<String> coursesId = new HashSet<>();
+    private Set<String> courses = new HashSet<>();
 
 
     public void registerStudentForCourses(Set<String> newCourses){
-        var currentCourses = this.getCoursesId();
+        var currentCourses = this.getCourses();
         currentCourses.addAll(newCourses);
-        this.setCoursesId(currentCourses);
+        this.setCourses(currentCourses);
     }
 }

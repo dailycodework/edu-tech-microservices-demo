@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VOTemplate {
-    private Student student;
-    private Object[] courses;
-    private Student[] students;
+    private List<Course> courses;
+    private List<Student> students;
 }

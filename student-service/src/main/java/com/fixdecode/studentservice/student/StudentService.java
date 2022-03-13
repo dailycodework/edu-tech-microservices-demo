@@ -2,6 +2,7 @@ package com.fixdecode.studentservice.student;
 
 import com.fixdecode.studentservice.exceptions.StudentNotFoundException;
 import com.fixdecode.studentservice.util.FeedBackMessage;
+import com.fixdecode.studentservice.vo.Course;
 import com.fixdecode.studentservice.vo.RequestTemplate;
 import com.fixdecode.studentservice.vo.VOTemplate;
 import lombok.AllArgsConstructor;
@@ -9,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 @Slf4j
 @Service
@@ -29,35 +30,33 @@ public class StudentService {
         return studentRepository.save(theStudent);
     }
 
-    public VOTemplate getStudentWithCourses(String studentEmail){
-        VOTemplate VOT = new VOTemplate();
-        var theStudent =  this.getStudentById(studentEmail);
-        Object[] courses = requestTemplate.getStudentCourses(theStudent.getCoursesId());
-        VOT.setStudent(theStudent);
-        VOT.setCourses(courses);
-        return VOT;
-    }
-   @Transactional
+
     public List<Student> getSelectedStudentsById(Iterable<String> studentIds) {
         return studentRepository.findAllById(studentIds).stream().toList();
     }
 
     public Student updateStudent(Student theStudent) {
         var student = this.getStudentById(theStudent.getId());
-        theStudent.setCoursesId(student.getCoursesId());
+        theStudent.setCourses(student.getCourses());
         return studentRepository.save(theStudent);
     }
 
     @Transactional
-    public List<Student> registerStudentsForCourses(Set<String> studentsIds, Set<String> coursesIds) {
+    public List<Student> registerStudentsForCourses(Set<String> coursesIds, Set<String> studentsIds) {
         var students = getSelectedStudentsById(studentsIds);
+        var theStudents = students.stream().map(Student::getId).collect(toSet());
+        //Making rest call to course-service to save students to selected courses.
+       var studentSavedToCourses = requestTemplate.registerStudentForCourses(coursesIds, theStudents);
         List<Student> registeredStudents = new ArrayList<>();
-        for (Student s : students){
-            s.registerStudentForCourses(coursesIds);
-            registeredStudents.add(s);
+        if (studentSavedToCourses.getStatusCodeValue() == 200){
+            for (Student s : students){
+                s.registerStudentForCourses(coursesIds);
+                registeredStudents.add(s);
+            }
         }
         return studentRepository.saveAll(registeredStudents);
     }
+
 
     private Student getStudentById(String id) {
         return studentRepository.findById(id)

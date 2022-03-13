@@ -47,11 +47,11 @@ public class CourseController {
                 courseService.addCourseInstructor(courseId, instructorId), HttpStatus.OK);
     }
 
-    @PostMapping(UrlMapping.ADD_SELECTED_STUDENTS_TO_COURSES)
-    public ResponseEntity<List<Course>> addSelectedStudentsToCourses(
+    @PostMapping(UrlMapping.REGISTER_SELECTED_STUDENTS_FOR_COURSES)
+    public ResponseEntity<List<Course>> registerSelectedStudentsForCourses(
                        @RequestParam("coursesIds") Set<String> coursesIds,
                        @RequestParam("studentsIds") Set<String> studentsIds){
         return new ResponseEntity<>(
-                courseService.addSelectedStudentsToCourses(coursesIds, studentsIds), HttpStatus.OK);
+                courseService.registerSelectedStudentsToCourses(coursesIds, studentsIds), HttpStatus.OK);
     }
 }

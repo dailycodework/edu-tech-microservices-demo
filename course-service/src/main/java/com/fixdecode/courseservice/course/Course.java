@@ -27,12 +27,12 @@ public class Course {
     private String duration;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "course_students", joinColumns = @JoinColumn(name = "course_id"))
-    private Set<String> studentsIds = new HashSet<>();
+    private Set<String> students = new HashSet<>();
     private String instructorId;
 
-    public void addStudentsToCourses(Set<String> newStudentIds){
-        var currentStudents = this.getStudentsIds();
-        currentStudents.addAll(newStudentIds);
-        this.setStudentsIds(currentStudents);
+    public void addStudentsToCourses(Set<String> newStudent){
+        var currentStudents = this.getStudents();
+        currentStudents.addAll(newStudent);
+        this.setStudents(currentStudents);
     }
 }

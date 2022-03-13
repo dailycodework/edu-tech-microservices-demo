@@ -33,22 +33,22 @@ public class StudentController {
 
     @PostMapping(UrlMapping.REGISTER_STUDENTS_FOR_COURSES)
     public ResponseEntity<List<Student>> registerStudentsForCourses(
-            @RequestParam("studentsIds") Set<String> studentsIds,
-            @RequestParam("coursesIds") Set<String> coursesIds){
-        return new ResponseEntity<>(studentService.registerStudentsForCourses(studentsIds,coursesIds),HttpStatus.OK);
+            @RequestParam("coursesIds") Set<String> coursesIds,
+            @RequestParam("studentsIds") Set<String> studentsIds){
+        return new ResponseEntity<>(studentService.registerStudentsForCourses(coursesIds, studentsIds),HttpStatus.OK);
     }
 
-    @GetMapping(UrlMapping.GET_STUDENT_BY_ID)
+  /*  @GetMapping(UrlMapping.GET_STUDENT_BY_ID)
     public ResponseEntity<VOTemplate> getStudentWithCourses(@PathVariable("id") String id){
         return new ResponseEntity<>(studentService.getStudentWithCourses(id), HttpStatus.FOUND);
-    }
+    }*/
 
     @GetMapping(UrlMapping.GET_SELECTED_STUDENTS)
     public ResponseEntity<List<Student>> getSelectedStudentsById(@PathVariable("ids") Set<String> ids){
         log.info("The IDs {} : ", ids);
         List<Student> students = studentService.getSelectedStudentsById(ids);
         log.info("## Students Found {} : ",students.toArray());
-        return new ResponseEntity<>(students, HttpStatus.OK);
+        return new ResponseEntity<>(students, HttpStatus.FOUND);
     }
 
     @PutMapping(UrlMapping.UPDATE_STUDENT)

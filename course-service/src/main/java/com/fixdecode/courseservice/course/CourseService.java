@@ -35,7 +35,7 @@ public class CourseService {
 
     public Course getCourse(String id){
         return courseRepository.findById(id)
-                .orElseThrow(() -> new CourseNotFoundException(String.format(FeedBackMessage.NOT_FOUND, id)));
+        .orElseThrow(() -> new CourseNotFoundException(String.format(FeedBackMessage.NOT_FOUND, id)));
     }
 
     @Transactional
@@ -43,12 +43,12 @@ public class CourseService {
         VOTemplate VOT = new VOTemplate();
         Course theCourse = this.getCourse(courseId);
         //Make a rest call to get selected student from the student-service
-        Student[] students = requestTemplate.getSelectedStudents(theCourse.getStudentsIds());
-        log.info("Students Found  {} : ", Arrays.stream(students).toArray());
+        var students = requestTemplate.getSelectedStudents(theCourse.getStudents());
+      //  log.info("Students Found  {} : ", Arrays.stream(students).toArray());
         //Make a rest call to instructor-service
         Instructor instructor = requestTemplate.getCourseInstructor(theCourse.getInstructorId());
         VOT.setInstructor(instructor);
-        VOT.setStudents(students);
+       // VOT.setStudents(students);
         return VOT;
     }
 
@@ -59,19 +59,13 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
-    @Transactional
-    public List<Course> addSelectedStudentsToCourses(Set<String> coursesIds, Set<String> studentsIds) {
-        List<Course> studentCourses = new ArrayList<>();
-        var courses = courseRepository.findAllById(coursesIds);
-        System.out.println(courses.toString());
-        //Make a rest call to get selected student from the student-service
-        Student[] students = requestTemplate.getSelectedStudents(studentsIds);
-        log.info("Students Found {} : ", Arrays.stream(students).toArray());
-        var studentIds = Arrays.stream(students).map(Student::getId).collect(toSet());
-        for (Course course : courses){
-            course.addStudentsToCourses(studentIds);
-            studentCourses.add(course);
+    public List<Course> registerSelectedStudentsToCourses(Set<String> coursesIds, Set<String> studentsIds) {
+        var courses =  courseRepository.findAllById(coursesIds);
+        List<Course> registerCourses = new ArrayList<>();
+        for (Course c : courses){
+            c.getStudents().addAll(studentsIds);
+            registerCourses.add(c);
         }
-       return courseRepository.saveAll(studentCourses);
+        return courseRepository.saveAll(registerCourses);
     }
 }
