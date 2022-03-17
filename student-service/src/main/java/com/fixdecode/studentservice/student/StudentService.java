@@ -2,7 +2,7 @@ package com.fixdecode.studentservice.student;
 
 import com.fixdecode.studentservice.exceptions.StudentNotFoundException;
 import com.fixdecode.studentservice.util.FeedBackMessage;
-import com.fixdecode.studentservice.vo.RestRequestTemplate;
+import com.fixdecode.studentservice.vo.RequestTemplate;
 import com.fixdecode.studentservice.vo.VOTemplate;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import static java.util.stream.Collectors.toSet;
 @AllArgsConstructor
 public class StudentService {
     private StudentRepository studentRepository;
-    private RestRequestTemplate requestTemplate;
+    private RequestTemplate requestTemplate;
 
     public List<Student> getStudents(){
         return studentRepository.findAll().stream().toList();
@@ -69,8 +69,6 @@ public class StudentService {
         VOT.setStudents(Collections.singletonList(student));
         return VOT;
     }
-
-
 
     private Student getStudentById(String id) {
         return studentRepository.findById(id)

@@ -12,11 +12,13 @@
         <module name="student-service" />
         <module name="instructor-service" />
         <module name="service-registry" />
+        <module name="hystrix-dashboard" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="api-gateway" target="17" />
       <module name="course-service" target="17" />
+      <module name="hystrix-dashboard" target="17" />
       <module name="instructor-service" target="17" />
       <module name="service-registry" target="17" />
       <module name="student-service" target="17" />
@@ -26,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
       <module name="course-service" options="-parameters" />
+      <module name="hystrix-dashboard" options="-parameters" />
       <module name="instructor-service" options="-parameters" />
       <module name="service-registry" options="-parameters" />
       <module name="student-service" options="-parameters" />

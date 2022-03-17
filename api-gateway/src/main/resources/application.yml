@@ -20,7 +20,32 @@ spring:
           uri: lb://STUDENT-SERVICE
           predicates:
             - Path=/api/v1/students/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: STUDENT-SERVICE
+                fallback: foward:/studentFallBackMessage
+
         - id: COURSE-SERVICE
           uri: lb://COURSE-SERVICE
           predicates:
             - Path=/api/v1/courses/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: COURSE-SERVICE
+                fallback: foward:/courseFallBackMessage
+
+hystrix:
+  command:
+    fallbackcmd:
+      execusion:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

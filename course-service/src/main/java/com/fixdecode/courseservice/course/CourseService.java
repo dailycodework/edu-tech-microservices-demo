@@ -44,7 +44,6 @@ public class CourseService {
         Course theCourse = this.getCourse(courseId);
         //Make a rest call to get selected student from the student-service
         var students = requestTemplate.getSelectedStudents(theCourse.getStudents());
-      //  log.info("Students Found  {} : ", Arrays.stream(students).toArray());
         //Make a rest call to instructor-service
         Instructor instructor = requestTemplate.getCourseInstructor(theCourse.getInstructorId());
         VOT.setInstructor(instructor);

@@ -11,10 +11,9 @@ import java.util.Set;
 
 @Component
 @AllArgsConstructor
-public class RestRequestTemplate {
+public class RequestTemplate {
     private RestTemplate restTemplate;
     private final String COURSE_URL="http://COURSE-SERVICE/api/v1/courses/";
-
 
     public Course[] getSelectedCourses(Set<String> coursesIds) {
         String STUDENT_COURSES = COURSE_URL+"/get-selected-courses/";
